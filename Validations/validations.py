@@ -32,9 +32,6 @@ def validar_formato_data_hora(review_dataframe, review_coluna):
         print(f"ERRO: A coluna '{review_coluna}' não foi encontrada no DataFrame fornecido.")
         return pd.DataFrame()
 
-    print(f"Analisando a coluna: '{review_coluna}'")
-    print(f"Formato esperado: 'yyyy/MM/dd hh:MM:ss'")
-
     formato_esperado = '%Y-%m-%d %H:%M:%S'
 
     datas_convertidas = pd.to_datetime(
@@ -47,9 +44,10 @@ def validar_formato_data_hora(review_dataframe, review_coluna):
     total_linhas = len(review_dataframe)
     total_validos = mascara_validos.sum()
     total_invalidos = total_linhas - total_validos
+    percentual_validos = total_validos/total_linhas*100
+    percentual_invalidos = total_invalidos/total_linhas*100
 
-    print(f"Linhas Válidas da Coluna {review_coluna} no dataframe: {total_validos} de {total_linhas} ({total_validos/total_linhas*100}%)")
-    print(f"Linhas Inválidas da Coluna {review_coluna} no dataframe: {total_invalidos} de {total_linhas} ({total_invalidos/total_linhas*100}%)")
+    show_results(review_coluna, total_linhas, total_validos, total_invalidos, percentual_validos, percentual_invalidos)
 
     mascara_invalidos = ~mascara_validos
 
@@ -72,11 +70,13 @@ def validar_formato_monetario(review_dataframe, review_coluna):
     total_linhas = len(review_dataframe)
     total_validos = mascara_validos.sum()
     total_invalidos = total_linhas - total_validos
-
     percentual_validos = (total_validos / total_linhas) * 100
     percentual_invalidos = (total_invalidos / total_linhas) * 100
-    print(f"Linhas Válidas da Coluna {review_coluna} no dataframe: {total_validos} de {total_linhas} ({percentual_validos:.2f}%)")
-    print(f"Linhas Inválidas da Coluna {review_coluna} no dataframe: {total_invalidos} de {total_linhas} ({percentual_invalidos:.2f}%)")
+
+    percentual_validos = total_validos/total_linhas*100
+    percentual_invalidos = total_invalidos/total_linhas*100
+
+    show_results(review_coluna, total_linhas, total_validos, total_invalidos, percentual_validos, percentual_invalidos)
 
     mascara_invalidos = ~mascara_validos
     dataframe_invalidos = review_dataframe[mascara_invalidos].copy()
@@ -97,11 +97,10 @@ def validar_formato_numero_inteiro(review_dataframe, review_coluna):
     total_linhas = len(review_dataframe)
     total_validos = mascara_validos.sum()
     total_invalidos = total_linhas - total_validos
+    percentual_validos = total_validos/total_linhas*100
+    percentual_invalidos = total_invalidos/total_linhas*100
 
-    percentual_validos = (total_validos / total_linhas) * 100
-    percentual_invalidos = (total_invalidos / total_linhas) * 100
-    print(f"Linhas Válidas da Coluna {review_coluna} no dataframe: {total_validos} de {total_linhas} ({percentual_validos:.2f}%)")
-    print(f"Linhas Inválidas da Coluna {review_coluna} no dataframe: {total_invalidos} de {total_linhas} ({percentual_invalidos:.2f}%)")
+    show_results(review_coluna, total_linhas, total_validos, total_invalidos, percentual_validos, percentual_invalidos)
 
     mascara_invalidos = ~mascara_validos
     dataframe_invalidos = review_dataframe[mascara_invalidos].copy()
@@ -121,10 +120,10 @@ def validar_formato_cep(review_dataframe, review_coluna):
     total_linhas = len(review_dataframe)
     total_validos = mascara_validos.sum()
     total_invalidos = total_linhas - total_validos
+    percentual_validos = total_validos/total_linhas*100
+    percentual_invalidos = total_invalidos/total_linhas*100
 
-    if total_linhas > 0:
-        print(f"Linhas Válidas da Coluna {review_coluna} no dataframe: {total_validos} de {total_linhas} ({(total_validos/total_linhas)*100:.2f}%)")
-        print(f"Linhas Inválidas da Coluna {review_coluna} no dataframe: {total_invalidos} de {total_linhas} ({(total_invalidos/total_linhas)*100:.2f}%)")
+    show_results(review_coluna, total_linhas, total_validos, total_invalidos, percentual_validos, percentual_invalidos)
 
     mascara_invalidos = ~mascara_validos
     dataframe_invalidos = review_dataframe[mascara_invalidos].copy()
@@ -165,12 +164,10 @@ def validar_formato_cidade(review_dataframe, review_coluna, _cache={'valid_munic
     total_linhas = len(review_dataframe)
     total_validos = mascara_validos.sum()
     total_invalidos = total_linhas - total_validos
+    percentual_validos = (total_validos / total_linhas) * 100
+    percentual_invalidos = (total_invalidos / total_linhas) * 100
 
-    if total_linhas > 0:
-        percentual_validos = (total_validos / total_linhas) * 100
-        percentual_invalidos = (total_invalidos / total_linhas) * 100
-        print(f"Linhas Válidas da Coluna {review_coluna} no dataframe: {total_validos} de {total_linhas} ({percentual_validos:.2f}%)")
-        print(f"Linhas Inválidas da Coluna {review_coluna} no dataframe: {total_invalidos} de {total_linhas} ({percentual_invalidos:.2f}%)")
+    show_results(review_coluna, total_linhas, total_validos, total_invalidos, percentual_validos, percentual_invalidos)
 
     mascara_invalidos = ~mascara_validos
     dataframe_invalidos = review_dataframe[mascara_invalidos].copy()
@@ -195,12 +192,10 @@ def validar_formato_uf(review_dataframe, review_coluna):
     total_linhas = len(review_dataframe)
     total_validos = mascara_validos.sum()
     total_invalidos = total_linhas - total_validos
+    percentual_validos = (total_validos / total_linhas) * 100
+    percentual_invalidos = (total_invalidos / total_linhas) * 100
 
-    if total_linhas > 0:
-        percentual_validos = (total_validos / total_linhas) * 100
-        percentual_invalidos = (total_invalidos / total_linhas) * 100
-        print(f"Linhas Válidas da Coluna {review_coluna} no dataframe: {total_validos} de {total_linhas} ({percentual_validos:.2f}%)")
-        print(f"Linhas Inválidas da Coluna {review_coluna} no dataframe: {total_invalidos} de {total_linhas} ({percentual_invalidos:.2f}%)")
+    show_results(review_coluna, total_linhas, total_validos, total_invalidos, percentual_validos, percentual_invalidos)
 
     mascara_invalidos = ~mascara_validos
     dataframe_invalidos = review_dataframe[mascara_invalidos].copy()
@@ -221,11 +216,10 @@ def validar_formato_coordenada(review_dataframe, review_coluna):
     total_validos = mascara_validos.sum()
     total_invalidos = total_linhas - total_validos
 
-    if total_linhas > 0:
-        percentual_validos = (total_validos / total_linhas) * 100
-        percentual_invalidos = (total_invalidos / total_linhas) * 100
-        print(f"Linhas Válidas da Coluna {review_coluna} no dataframe: {total_validos} de {total_linhas} ({percentual_validos:.2f}%)")
-        print(f"Linhas Inválidas da Coluna {review_coluna} no dataframe: {total_invalidos} de {total_linhas} ({percentual_invalidos:.2f}%)")
+    percentual_validos = (total_validos / total_linhas) * 100
+    percentual_invalidos = (total_invalidos / total_linhas) * 100
+
+    show_results(review_coluna, total_linhas, total_validos, total_invalidos, percentual_validos, percentual_invalidos)
 
     mascara_invalidos = ~mascara_validos
     dataframe_invalidos = review_dataframe[mascara_invalidos].copy()
@@ -279,11 +273,10 @@ def validar_formato_products_category(review_dataframe, review_coluna):
     total_linhas = len(review_dataframe)
     total_validos = mascara_validos.sum()
     total_invalidos = total_linhas - total_validos
-
     percentual_validos = (total_validos / total_linhas) * 100
     percentual_invalidos = (total_invalidos / total_linhas) * 100
-    print(f"Linhas Válidas da Coluna {review_coluna} no dataframe: {total_validos} de {total_linhas} ({percentual_validos:.2f}%)")
-    print(f"Linhas Inválidas da Coluna {review_coluna} no dataframe: {total_invalidos} de {total_linhas} ({percentual_invalidos:.2f}%)")
+    
+    show_results(review_coluna, total_linhas, total_validos, total_invalidos, percentual_validos, percentual_invalidos)
 
     mascara_invalidos = ~mascara_validos
     dataframe_invalidos = review_dataframe[mascara_invalidos].copy()
@@ -306,12 +299,10 @@ def validar_formato_order_status(review_dataframe, review_coluna):
     total_linhas = len(review_dataframe)
     total_validos = mascara_validos.sum()
     total_invalidos = total_linhas - total_validos
-
-    if total_linhas > 0:
-        percentual_validos = (total_validos / total_linhas) * 100
-        percentual_invalidos = (total_invalidos / total_linhas) * 100
-        print(f"Linhas Válidas da Coluna {review_coluna} no dataframe: {total_validos} de {total_linhas} ({percentual_validos:.2f}%)")
-        print(f"Linhas Inválidas da Coluna {review_coluna} no dataframe: {total_invalidos} de {total_linhas} ({percentual_invalidos:.2f}%)")
+    percentual_validos = (total_validos / total_linhas) * 100
+    percentual_invalidos = (total_invalidos / total_linhas) * 100
+    
+    show_results(review_coluna, total_linhas, total_validos, total_invalidos, percentual_validos, percentual_invalidos)
 
     mascara_invalidos = ~mascara_validos
     dataframe_invalidos = review_dataframe[mascara_invalidos].copy()
@@ -334,11 +325,10 @@ def validar_formato_forma_de_pagamento(review_dataframe, review_coluna):
     total_validos = mascara_validos.sum()
     total_invalidos = total_linhas - total_validos
 
-    if total_linhas > 0:
-        percentual_validos = (total_validos / total_linhas) * 100
-        percentual_invalidos = (total_invalidos / total_linhas) * 100
-        print(f"Linhas Válidas da Coluna {review_coluna} no dataframe: {total_validos} de {total_linhas} ({percentual_validos:.2f}%)")
-        print(f"Linhas Inválidas da Coluna {review_coluna} no dataframe: {total_invalidos} de {total_linhas} ({percentual_invalidos:.2f}%)")
+    percentual_validos = (total_validos / total_linhas) * 100
+    percentual_invalidos = (total_invalidos / total_linhas) * 100
+
+    show_results(review_coluna, total_linhas, total_validos, total_invalidos, percentual_validos, percentual_invalidos)
 
     mascara_invalidos = ~mascara_validos
     dataframe_invalidos = review_dataframe[mascara_invalidos].copy()
@@ -361,11 +351,10 @@ def validar_formato_monetario(review_dataframe, review_coluna):
     total_linhas = len(review_dataframe)
     total_validos = mascara_validos.sum()
     total_invalidos = total_linhas - total_validos
-
     percentual_validos = (total_validos / total_linhas) * 100
     percentual_invalidos = (total_invalidos / total_linhas) * 100
-    print(f"Linhas Válidas da Coluna {review_coluna} no dataframe: {total_validos} de {total_linhas} ({percentual_validos:.2f}%)")
-    print(f"Linhas Inválidas da Coluna {review_coluna} no dataframe: {total_invalidos} de {total_linhas} ({percentual_invalidos:.2f}%)")
+
+    show_results(review_coluna, total_linhas, total_validos, total_invalidos, percentual_validos, percentual_invalidos)
 
     mascara_invalidos = ~mascara_validos
     dataframe_invalidos = review_dataframe[mascara_invalidos].copy()
@@ -390,11 +379,10 @@ def validar_formato_score(review_dataframe, review_coluna):
     total_linhas = len(review_dataframe)
     total_validos = mascara_validos.sum()
     total_invalidos = total_linhas - total_validos
-
     percentual_validos = (total_validos / total_linhas) * 100
     percentual_invalidos = (total_invalidos / total_linhas) * 100
-    print(f"Linhas Válidas da Coluna {review_coluna} no dataframe: {total_validos} de {total_linhas} ({percentual_validos:.2f}%)")
-    print(f"Linhas Inválidas da Coluna {review_coluna} no dataframe: {total_invalidos} de {total_linhas} ({percentual_invalidos:.2f}%)")
+
+    show_results(review_coluna, total_linhas, total_validos, total_invalidos, percentual_validos, percentual_invalidos)
 
     mascara_invalidos = ~mascara_validos
     dataframe_invalidos = review_dataframe[mascara_invalidos].copy()
@@ -402,6 +390,6 @@ def validar_formato_score(review_dataframe, review_coluna):
     return dataframe_invalidos
 
 def show_results(review_coluna, total_linhas, total_validos, total_invalidos, percentual_validos, percentual_invalidos):
-    print('='*5 + f"RESULTADOS PARA A COLUNA {review_coluna.upper()}" + '='*5)
+    print(f"="*5 + f"RESULTADOS PARA A COLUNA {review_coluna.upper()}" + f"="*5)
     print(f"Linhas Válidas da Coluna {review_coluna} no dataframe: {total_validos} de {total_linhas} ({percentual_validos:.2f}%)")
     print(f"Linhas Inválidas da Coluna {review_coluna} no dataframe: {total_invalidos} de {total_linhas} ({percentual_invalidos:.2f}%) \n")

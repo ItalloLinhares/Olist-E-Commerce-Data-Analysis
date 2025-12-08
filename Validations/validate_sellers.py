@@ -1,6 +1,6 @@
 def validate_sellers(sellers):
     import pandas as pd
-    import validations as validations 
+    import Validations.validations as validations 
     #Cria um dicionario para guardar todas os registros inválidos de cada coluna
     registros_invalidos_sellers = {column: pd.DataFrame() for column in sellers.columns}
     #Verifica se a coluna seller_id é válida

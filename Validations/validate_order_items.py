@@ -1,4 +1,4 @@
-def validate_orders_items(order_items):
+def validate_order_items(order_items):
     import pandas as pd
     import Validations.validations as validations
     #Cria um dicionario para guardar todas os registros inválidos de cada coluna

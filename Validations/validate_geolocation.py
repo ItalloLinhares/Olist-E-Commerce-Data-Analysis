@@ -1,6 +1,6 @@
 def validate_geolocation(geolocation):
     import pandas as pd
-    import validations as validations
+    import Validations.validations as validations
 
     #Cria um dicionario para guardar todas os registros inválidos de cada coluna
     registros_invalidos_geolocation = {column: pd.DataFrame() for column in geolocation.columns}

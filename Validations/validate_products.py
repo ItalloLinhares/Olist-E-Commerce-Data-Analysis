@@ -1,6 +1,6 @@
 def validate_products(products):
     import pandas as pd
-    import validations as validations
+    import Validations.validations as validations
     #Cria um dicionario para guardar todas os registros inválidos de cada coluna
     registros_invalidos_products = {column: pd.DataFrame() for column in products.columns}
     #Verifica se a coluna order_id é válida
@@ -22,8 +22,8 @@ def validate_products(products):
     #Verifica se a coluna product_width_cm é válida
     registros_invalidos_products['product_width_cm'] = validations.validar_formato_numero_inteiro(products, 'product_width_cm')
     #Junta todas os dicionarios em um Dataframe e exclui as cópias para termos um Dataframe final com todos os valores inválidos
-    registros_invalidos_products = registros_invalidos_products['product_id', 'product_category_name']
-    lista_registros_invalidos_products = list(registros_invalidos_products.values())
+    lista_registros_invalidos_products = [registros_invalidos_products['product_id'], 
+                                    registros_invalidos_products['product_category_name']]
     df_registros_invalidos_orders_reviews_combinado = pd.concat(lista_registros_invalidos_products, ignore_index=True)
     dataframe_registros_orders_reviews_invalidos = df_registros_invalidos_orders_reviews_combinado.drop_duplicates(subset=['product_id'], keep='first')
     return dataframe_registros_orders_reviews_invalidos

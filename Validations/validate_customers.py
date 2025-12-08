@@ -1,6 +1,6 @@
-def validate_orders_items(customers):
+def validate_customers(customers):
     import pandas as pd
-    import validations as validations
+    import Validations.validations as validations
     registros_invalidos_cutomers = {column: pd.DataFrame() for column in customers.columns}
     #Verifica se a coluna order_id é válida
     registros_invalidos_cutomers['customer_id'] = validations.validar_formato_id_alfanumerico_32(customers, 'customer_id')
